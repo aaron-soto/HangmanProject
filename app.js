@@ -73,9 +73,34 @@ $(document).ready(function () {
   // setting amount of lives
   let lives = 5;
 
-  let wins = 0;
-  let winStreak = 0;
-  let losses = 0;
+  // setting initial amount of coins
+  let coins = 20;
+  localStorage.setItem("coins", coins);
+
+  // getting locally stored variables
+  let wins = localStorage.getItem("wins");
+  let winStreak = localStorage.getItem("winStreak");
+  let losses = localStorage.getItem("losses");
+  coins = localStorage.getItem("coins");
+
+  // displaying locally stored variables
+  // If none exist, set them to 0
+  if ("wins" in localStorage) {
+    $("#wins").text(wins);
+  } else {
+    $("#wins").text("0");
+  }
+  if ("winStreak" in localStorage) {
+    $("#winStreak").text(winStreak);
+  } else {
+    $("#winStreak").text("0");
+  }
+  if ("losses" in localStorage) {
+    $("#losses").text(losses);
+  } else {
+    $("#losses").text("0");
+  }
+  $("#coins").text(parseInt(coins));
 
   // getting random word from array words
   var randomWord = getRandomWord();
@@ -84,6 +109,29 @@ $(document).ready(function () {
   function getRandomWord() {
     var word = words[Math.floor(Math.random() * words.length)];
     return word;
+  }
+
+  // use coins for guessing a letter
+
+  $("#hint-btn").click(function () {
+    if (coins >= 10) {
+      coins -= 10;
+      localStorage.setItem("coins", coins);
+      $("#coins").text(coins);
+      revealLetter();
+    }
+  });
+
+  function revealLetter() {
+    for (var i = 0; i < randomWord.length; i++) {
+      // gets each item by index
+      if ($(`.letter-space:eq( ${i} )`).text() === "") {
+        $(`.letter-space:eq( ${i} )`).text(randomWord.charAt(i));
+        $(`.letter-space:eq( ${i} )`).css("border-bottom", "none");
+        lettersCorrect++;
+        break;
+      }
+    }
   }
 
   // handle game reload
@@ -118,6 +166,7 @@ $(document).ready(function () {
       $("#hidden-word").append(`<div class="letter-space"></div>`);
     }
   }
+
   drawLetterSpaces();
   drawLives(lives);
 
@@ -145,6 +194,8 @@ $(document).ready(function () {
       winStreak = 0;
       $("#winstreak").text(winStreak);
       $("#losses").text(losses);
+      localStorage.setItem("losses", losses);
+      localStorage.setItem("winStreak", winStreak);
     }
   }
 
@@ -171,12 +222,21 @@ $(document).ready(function () {
       winStreak++;
       $("#wins").text(wins);
       $("#winstreak").text(winStreak);
+      localStorage.setItem("wins", wins);
+      localStorage.setItem("winStreak", winStreak);
+      getReward();
     }
     // if letter not found in word take away a live and redraw hearts
     if (!letterFound) {
       lives = lives - 1;
       drawLives(lives);
     }
+  }
+
+  function getReward() {
+    coins = parseInt(localStorage.getItem("coins")) + 10;
+    localStorage.setItem("coins", coins);
+    $("#coins").text(coins);
   }
 
   // On Click Letter Function

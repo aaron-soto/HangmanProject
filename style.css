@@ -88,6 +88,46 @@ body {
   padding: 20px 30px;
   text-align: right;
 }
-.win-streak h4 {
+.win-streak h4,
+.coins h4 {
   color: #a5a58d !important;
+}
+.coins {
+  font-size: 1.6rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 20px 30px;
+  text-align: right;
+}
+.fa-bitcoin {
+  margin-right: 10px;
+}
+#hint-btn {
+  border-radius: 50%;
+  margin-top: 40px;
+  height: 50px;
+  width: 50px;
+  background-color: #e9c46a;
+  border: none;
+  position: relative;
+  transition: all 0.3s ease;
+}
+#hint-btn:hover {
+  background-color: #e9d299;
+}
+
+#hint-btn::before {
+  font-family: "Font Awesome 5 Brands";
+  content: "\f379 10";
+  background-color: #b2b2b2;
+  padding: 5px 10px;
+  border-radius: 20px;
+  position: absolute;
+  top: -25%;
+  left: -50%;
+  transition: all 0.3s ease;
+}
+#hint-btn:hover:before {
+  background-color: #bbbbbb;
 }
