@@ -80,3 +80,14 @@ body {
 #winner h4 {
   filter: drop-shadow(0px 3px 4px rgba(0, 0, 0, 0.32));
 }
+.win-streak {
+  font-size: 1.6rem;
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 20px 30px;
+  text-align: right;
+}
+.win-streak h4 {
+  color: #a5a58d !important;
+}

@@ -73,15 +73,30 @@ $(document).ready(function () {
   // setting amount of lives
   let lives = 5;
 
+  let wins = 0;
+  let winStreak = 0;
+  let losses = 0;
+
   // getting random word from array words
-  var randomWord = words[Math.floor(Math.random() * words.length)];
+  var randomWord = getRandomWord();
   let lettersCorrect = 0;
 
-  // Hide game over nad win divs until Game is finished
+  function getRandomWord() {
+    var word = words[Math.floor(Math.random() * words.length)];
+    return word;
+  }
 
   // handle game reload
   $(".play-again-btn").click(function () {
-    location.reload();
+    randomWord = getRandomWord();
+    lettersCorrect = 0;
+    lives = 5;
+    $("#game-over").hide();
+    $("#winner").hide();
+    $(".letter-btn").removeClass("disabled");
+    $("#hidden-word").empty();
+    drawLives(lives);
+    drawLetterSpaces();
   });
 
   // drawing alphabet squares
@@ -90,7 +105,7 @@ $(document).ready(function () {
       `
       <button
       id="letter-square"
-      class="btn border-none rounded-0 btn-light">
+      class="btn letter-btn border-none rounded-0 btn-light">
         ${letter}
       </button>
       `
@@ -98,10 +113,12 @@ $(document).ready(function () {
   });
 
   // drawing blank letter spaces
-  for (var i = 0; i < randomWord.length; i++) {
-    $("#hidden-word").append(`<div class="letter-space"></div>`);
+  function drawLetterSpaces() {
+    for (var i = 0; i < randomWord.length; i++) {
+      $("#hidden-word").append(`<div class="letter-space"></div>`);
+    }
   }
-
+  drawLetterSpaces();
   drawLives(lives);
 
   // drawing lives to screen
@@ -124,6 +141,10 @@ $(document).ready(function () {
     if (lives === 0) {
       $("#game-over-word").text(randomWord);
       $("#game-over").fadeIn();
+      losses++;
+      winStreak = 0;
+      $("#winstreak").text(winStreak);
+      $("#losses").text(losses);
     }
   }
 
@@ -146,6 +167,10 @@ $(document).ready(function () {
     }
     if (lettersCorrect === randomWord.length) {
       $("#winner").fadeIn();
+      wins++;
+      winStreak++;
+      $("#wins").text(wins);
+      $("#winstreak").text(winStreak);
     }
     // if letter not found in word take away a live and redraw hearts
     if (!letterFound) {
