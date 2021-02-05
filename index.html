@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <!-- Linking Fontawesome -->
+    <script
+      src="https://kit.fontawesome.com/3d481c9751.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Linking Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+
+    <!-- Linking jQuery -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.js"
+      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+      crossorigin="anonymous"
+    ></script>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body
+    class="text-light vh-100 align-items-center justify-content-center d-flex flex-column"
+  >
+    <div id="game-over">
+      <h2 class="display-1">Game Over!</h2>
+      <h4 class="h2">
+        The word was <span class="text-dark" id="game-over-word"></span>
+      </h4>
+      <button class="play-again-btn btn btn-secondary m-4 py-2 px-4">
+        Play Again?
+      </button>
+    </div>
+    <div id="winner">
+      <h2 class="display-1">You Win!</h2>
+      <h4 class="h2">You guessed the word!</h4>
+      <button class="btn btn-secondary play-again-btn m-4 py-2 px-4">
+        Play Again
+      </button>
+    </div>
+    <div class="row m-3 justify-content-center">
+      <div id="hidden-word" class="row"></div>
+    </div>
+    <div class="container alphabet-container">
+      <div id="alphabet-row" class="row my-3 justify-content-center"></div>
+    </div>
+    <div class="row mt-2">
+      <div id="lives"></div>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
